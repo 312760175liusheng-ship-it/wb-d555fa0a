@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新店筹备期 · 作战台</title>
+<style>
+  :root{
+    --bg:#f5f5f0; --card:#ffffff; --line:#e3e1d8; --text:#2c2c2a; --muted:#76746c;
+    --accent:#1d9e75; --accentbg:#e1f5ee; --blue:#185fa5; --bluebg:#e6f1fb;
+    --amber:#9a6a10; --amberbg:#faeeda;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.65; padding:16px; }
+  .wrap{ max-width:760px; margin:0 auto; }
+  h1{ font-size:21px; font-weight:600; margin:6px 0 2px; }
+  .sub{ color:var(--muted); font-size:13px; margin:0 0 16px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:16px; }
+  h2{ font-size:16px; font-weight:600; margin:2px 0 3px; }
+  h2 .tip{ font-size:12px; color:var(--muted); font-weight:400; }
+  .prog{ height:8px; background:var(--line); border-radius:6px; overflow:hidden; margin:10px 0 4px; }
+  .prog > div{ height:100%; background:var(--accent); width:0%; transition:width .2s; }
+  .progtxt{ font-size:12px; color:var(--muted); margin-bottom:6px; }
+  .block{ font-size:14px; font-weight:600; margin:14px 0 6px; color:var(--text); }
+  .item{ display:flex; align-items:flex-start; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line); }
+  .item:last-child{ border-bottom:none; }
+  .item input[type=checkbox]{ width:19px; height:19px; margin-top:1px; flex-shrink:0; accent-color:var(--accent); cursor:pointer; }
+  .item .txt{ font-size:14px; flex:1; }
+  .item.done .txt{ color:var(--muted); text-decoration:line-through; }
+  .deliver{ display:inline-block; font-size:11px; background:var(--bluebg); color:var(--blue);
+    padding:1px 8px; border-radius:6px; margin-left:6px; white-space:nowrap; }
+  .scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin:6px 0; }
+  table{ border-collapse:collapse; font-size:13px; min-width:760px; }
+  th,td{ border:1px solid var(--line); padding:4px; vertical-align:top; }
+  th{ background:#eef2ee; font-weight:600; font-size:12px; white-space:nowrap; padding:7px 6px; }
+  td input{ border:none; width:100%; min-width:78px; font-size:13px; padding:5px 4px; background:transparent; color:var(--text); font-family:inherit; }
+  td input:focus{ outline:none; background:var(--accentbg); border-radius:4px; }
+  td.del{ width:30px; text-align:center; padding:0; }
+  .delbtn{ border:none; background:transparent; color:#c0392b; cursor:pointer; font-size:16px; }
+  .btn{ border:1px solid var(--line); background:#fff; border-radius:8px; padding:7px 13px; font-size:13px; cursor:pointer; color:var(--text); }
+  .btn:hover{ background:var(--bg); } .btn:active{ transform:scale(.98); }
+  .note{ font-size:12px; color:var(--muted); margin-top:8px; }
+  .save{ font-size:11px; color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>新店筹备期 · 作战台</h1>
+  <p class="sub">约 4 周筹备（启动前），一周一块往前推；拍摄主角是你、郝哥不出镜。每条任务挂一个"产出物"。<span class="save">✓ 勾选和填写自动存档，关了再开还在。</span></p>
+
+  <div class="card">
+    <h2>📋 筹备 4 周计划 <span class="tip">· 一周一块，带着产出物推进</span></h2>
+    <div class="prog"><div id="bar"></div></div>
+    <div class="progtxt" id="progtxt">0 / 0 完成</div>
+    <div id="checklist"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔍 竞品情报表 <span class="tip">· 扒3-5家同城跑得好的外卖店</span></h2>
+    <p class="note" style="margin-top:2px">美团/饿了么把地址定到保利大江郡，挑月销最高的几家，逐家填。手机可左右滑动表格。</p>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>店名</th><th>平台</th><th>月销/单量</th><th>客单价</th><th>爆款菜</th>
+          <th>满减/活动</th><th>图片风格(学什么)</th><th>差评的坑(避什么)</th><th>我能抄/改进的点</th><th></th>
+        </tr></thead>
+        <tbody id="comps"></tbody>
+      </table>
+    </div>
+    <button class="btn" onclick="addRow()">＋ 添加一家竞品</button>
+    <p class="note">填的越细，你上线的菜单、定价、拍图、避坑就越有依据——这张表本身就是你作品的第一份材料。</p>
+  </div>
+
+  <p class="sub">把这张作战台当筹备期的主线：清单一条条清掉，竞品表一家家填满。开业那天，你手里就不是"我学了好多"，而是一摞能用、能展示的真东西。</p>
+</div>
+
+<script>
+const CHECKLIST = {
+  "📅 第1周 · 摸底（信息 + 旧店）": [
+    ["美团/饿了么定位保利大江郡，扒月销最高的3-5家同类外卖店，填下方竞品情报表", "竞品情报表"],
+    ["翻竞品差评，记大家骂什么（出餐慢/分量少/像料理包）", "避坑清单"],
+    ["旧店现状拍摄：门头/在卖什么(土鸡土特产)/冷清画面——趁动工前，这是 before 素材", "before 素材"]
+  ],
+  "📅 第2周 · 定调（收口 + 开号）": [
+    ["收口信息收集：摸客群（小区入住率/谁点外卖/能接受客单价）", "客群画像"],
+    ["开'改造vlog'内容号（别塞测评号），定钩子「把冷清店改成AI炒菜机快餐店」", "内容号"],
+    ["练拍摄/剪辑，发第1条（旧店现状/转型预告，你旁白、郝哥不出镜）", "第1条视频"]
+  ],
+  "📅 第3周 · 搭台（菜单 + 店铺 + 视觉）": [
+    ["基于竞品情报，定上线菜单结构 + 引流爆款 + 满减策略（草案）", "上线菜单方案"],
+    ["注册/搭好美团、饿了么、抖音团购店铺（先建框架）", "线上店铺"],
+    ["学食品摄影，做店招 + 菜单视觉初稿（AI+模板）", "店铺视觉初稿"]
+  ],
+  "📅 第4周 · 就位（定稿 + 启动准备）": [
+    ["上线菜单 + 定价定稿", "上线方案定稿"],
+    ["私域群框架 + 开业引流活动方案", "私域+活动方案"],
+    ["内容号续发筹备vlog，拍摄脚本/设备就位等启动", "内容储备"]
+  ],
+  "🎬 改造vlog必拍清单（启动后陆续拍 · 主角是你，郝哥不出镜）": [
+    ["旁白/字幕讲转型缘由（土鸡店做不下去 → 改AI炒菜机快餐）", "开场叙事"],
+    ["拆改、清场过程", "拆改素材"],
+    ["装修/改造进度（每天拍一段，剪延时）", "延时素材"],
+    ["炒菜机开箱 → 进场 → 安装调试", "设备素材"],
+    ["🔥 第一次开机、炒第一道菜、出锅（绝不能漏）", "黄金镜头"],
+    ["新菜单设计、第一次试做摆盘", "出品素材"],
+    ["新店开业 → 和开头'旧店冷清'剪成 before/after", "高潮成片"]
+  ]
+};
+
+const elList = document.getElementById('checklist');
+let savedChecks = JSON.parse(localStorage.getItem('prep_checks') || '{}');
+let total = 0;
+Object.keys(CHECKLIST).forEach((block, bi)=>{
+  const h = document.createElement('div'); h.className='block'; h.textContent=block; elList.appendChild(h);
+  CHECKLIST[block].forEach((it, ii)=>{
+    const id = 'c'+bi+'_'+ii; total++;
+    const wrap = document.createElement('label'); wrap.className='item'; wrap.htmlFor=id;
+    const cb = document.createElement('input'); cb.type='checkbox'; cb.id=id;
+    cb.checked = !!savedChecks[id];
+    const txt = document.createElement('span'); txt.className='txt';
+    txt.innerHTML = it[0] + '<span class="deliver">产出：'+it[1]+'</span>';
+    if(cb.checked) wrap.classList.add('done');
+    cb.addEventListener('change', ()=>{
+      savedChecks[id]=cb.checked; localStorage.setItem('prep_checks', JSON.stringify(savedChecks));
+      wrap.classList.toggle('done', cb.checked); updateProg();
+    });
+    wrap.appendChild(cb); wrap.appendChild(txt); elList.appendChild(wrap);
+  });
+});
+function updateProg(){
+  const done = Object.values(savedChecks).filter(Boolean).length;
+  document.getElementById('bar').style.width = (total? Math.round(done/total*100):0)+'%';
+  document.getElementById('progtxt').textContent = done+' / '+total+' 完成';
+}
+updateProg();
+
+const COLS = 9;
+const comps = document.getElementById('comps');
+function saveComps(){
+  const data = [];
+  comps.querySelectorAll('tr').forEach(tr=>{
+    data.push(Array.from(tr.querySelectorAll('input')).map(i=>i.value));
+  });
+  localStorage.setItem('prep_comps', JSON.stringify(data));
+}
+function addRow(values){
+  const tr = document.createElement('tr');
+  for(let i=0;i<COLS;i++){
+    const td = document.createElement('td');
+    const inp = document.createElement('input');
+    inp.value = (values && values[i]) || '';
+    inp.addEventListener('input', saveComps);
+    td.appendChild(inp); tr.appendChild(td);
+  }
+  const tdd = document.createElement('td'); tdd.className='del';
+  const b = document.createElement('button'); b.className='delbtn'; b.textContent='×';
+  b.onclick = ()=>{ tr.remove(); saveComps(); };
+  tdd.appendChild(b); tr.appendChild(tdd);
+  comps.appendChild(tr);
+}
+let savedComps = JSON.parse(localStorage.getItem('prep_comps') || 'null');
+if(savedComps && savedComps.length){ savedComps.forEach(r=>addRow(r)); }
+else { addRow(); addRow(); addRow(); }
+</script>
+</body>
+</html>
