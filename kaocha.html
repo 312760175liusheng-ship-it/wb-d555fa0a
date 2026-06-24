@@ -23,9 +23,14 @@
   .q{ display:flex; align-items:flex-start; gap:9px; }
   .q input[type=checkbox]{ width:19px; height:19px; margin-top:2px; flex-shrink:0; accent-color:var(--accent); }
   .q .qt{ font-size:14px; font-weight:500; }
-  .hint{ color:var(--muted); font-size:12px; margin:3px 0 7px 28px; }
+  details{ margin:7px 0 8px 28px; }
+  summary{ cursor:pointer; color:var(--blue); font-size:13px; font-weight:500; list-style:none; }
+  summary::-webkit-details-marker{ display:none; }
+  summary::before{ content:"💡 "; }
+  details[open] summary{ margin-bottom:6px; }
+  .howto{ font-size:13px; color:#0c447c; background:var(--bluebg); border-radius:8px; padding:9px 11px; line-height:1.7; }
   textarea{ width:100%; border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:14px;
-    font-family:inherit; color:var(--text); background:#fff; resize:vertical; min-height:38px; }
+    font-family:inherit; color:var(--text); background:#fff; resize:vertical; min-height:38px; margin-top:2px; }
   textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accentbg); }
   .out{ background:var(--card); border:1.5px solid var(--accent); border-radius:10px; padding:13px 15px; margin-top:18px; }
   .out h2{ font-size:16px; font-weight:600; margin:0 0 4px; }
@@ -38,10 +43,10 @@
 <body>
 <div class="wrap">
   <h1>🔍 永辉考察清单</h1>
-  <p class="sub">到了永辉，照着逐条看、边看边记。<span class="save">✓ 勾选和笔记自动存本机，关了再开还在。</span></p>
+  <p class="sub">每条都有「💡 怎么看？」点开看具体方法。边看边记，<span class="save">✓ 自动存本机。</span></p>
 
   <div class="tips">
-    <b>怎么考察：</b>① 去 2–3 次、不同时段（工作日午晚高峰 + 周末）；② 像侦探、不是逛街，揣着问题看；③ <b>亲自买一次、吃一次</b>（尤其现制熟食），走完整流程；④ 顺手拍点素材。
+    <b>怎么考察：</b>① 去 2–3 次、不同时段（工作日午晚高峰 + 周末）；② 像侦探、不是逛街；③ <b>亲自买一次、吃一次</b>（尤其现制熟食），走完整流程；④ 顺手拍点素材。<br><b>核心就一句：超市跟餐饮看的逻辑一样——怎么把人勾进来、怎么让人还想来、怎么赚钱、怎么能复制。</b>
   </div>
 
   <div class="prog"><div id="bar"></div></div>
@@ -51,7 +56,7 @@
 
   <div class="out">
     <h2>📝 回来产出：永辉给我们快餐连锁的 5 条启发</h2>
-    <p>考察的意义在这——没产出物不算考察。回来把最有用的 5 条写下来，这是交给郝哥的作业。</p>
+    <p>没产出物不算考察。把最有用的 5 条写下来，这是交给郝哥的作业。</p>
     <textarea id="takeaways" placeholder="1.&#10;2.&#10;3.&#10;4.&#10;5."></textarea>
   </div>
 
@@ -61,29 +66,29 @@
 <script>
 const SECTIONS = {
   "🎯 ① 引流 → 留存（最重要）": [
-    ["a1","什么把人吸进门？","爆品/低价/现烤面包/活鱼…看门口和招牌主推啥"],
-    ["a2","什么让人还想再来？","品质/服务/体验/会员——这才是留人的"],
-    ["a3","我自己被什么勾住了？","亲自走一圈，记下'想再来'的那个瞬间"]
+    ["a1","什么把人吸进门？","站门口/入口看 3–5 分钟：① 门口最显眼处摆什么、挂什么大海报（那就是用来勾人的招牌爆品）；② 进门的人脚先往哪走、眼先看哪——必经的第一个区，往往就是引流区。数几个进店的人验证一下。"],
+    ["a2","什么让人还想再来？","'再来'看不见，靠这 4 个'代理信号'判断：① 办会员/储值热不热、店员推不推会员（愿办会员 = 打算还来）；② 有没有'熟门熟路、直奔某区'的回头客，店员跟顾客熟不熟（'阿姨又来啦'）；③ 有没有'别处买不到、只有这儿有'的招牌货（自有品牌面包、活鲜、现制熟食）——这种独一份，就是专门跑来的理由；④ 直接问正在买的人'你常来吗？为啥来这家不去别家'。➕ 你自己吃完问自己：'我会为它专门再跑一趟吗？为什么？'——那个'为什么'就是答案。"],
+    ["a3","我自己被什么勾住了？","放下'考察员'，当个真顾客走一圈。心里每冒出'这个不错/想买/下次还买这个'，立刻记下是哪样东西、哪个瞬间。那就是勾人的机关。"]
   ],
   "🔥 ② 爆品逻辑（流量品 vs 利润品）": [
-    ["b1","哪几个是'赔本赚吆喝'的引流爆款？","超低价、排队、摆最显眼处"],
-    ["b2","哪些看着是真赚钱的？","高毛利、自有品牌、熟食现制"],
-    ["b3","靠哪个明星单品打心智？","一提永辉就想到的那样东西"]
+    ["b1","怎么认'赔本赚吆喝'的引流爆款？","看 4 个信号，中 2 个以上基本就是：① 价格异常低（比菜市场/别家明显便宜，低到'这价他能赚钱吗'）；② 摆最显眼处 + 最大海报 + 大红价签（门口、地堆）；③ 写'每人限购 X 份'（限购 = 便宜到怕被薅）；④ 最多人围、推车里最多人放。再心算下成本——明显不为赚这个钱、是为把你勾进来顺手买别的，就是引流款。常见：鸡蛋、大米、现烤面包、当季水果、活鱼。"],
+    ["b2","哪些是真赚钱的？","跟引流款反着看：① 自有品牌（贴永辉/胖东来牌子的，没中间商、毛利高）；② 熟食/现制/烘焙（加工过的比卖原料赚）；③ '不打折、安静摆着、却一直有人买'的日常品。一句话：引流款在门口喊，赚钱款在里头闷声赚。"],
+    ["b3","靠哪个明星单品打心智？","① 海报/招牌/员工嘴里反复出现的那个（'我们的面包''我们的活鲜'）；② 你和身边去过的人，一想到永辉先想到啥——大家异口同声那个，就是它的心智招牌。"]
   ],
   "✨ ③ 体验与细节（留人的'真东西'）": [
-    ["c1","服务/员工状态怎么样？","热情？主动？精神面貌"],
-    ["c2","陈列/试吃/干净度有哪些讲究的细节？","哪些做得比普通超市用心"],
-    ["c3","哪个细节让我'有好感/想买'？","记下来——这就是复购机关"]
+    ["c1","服务/员工状态怎么样？","① 员工主动打招呼/帮忙，还是爱搭不理？② 精气神足不足（精神好 = 待遇好，胖东来那套）；③ 有没有主动给你试吃、介绍。跟你印象里普通超市员工比一比，差在哪。"],
+    ["c2","有哪些'比普通超市用心'的细节？","挑 3 个记下来：① 地面/货架干净度、生鲜区有没有异味（生鲜区最见功夫）；② 商品摆得齐不齐、价签清不清；③ 有没有免费试吃、现烤现切现做（让你看得见）；④ 灯光、走道舒不舒服。"],
+    ["c3","哪个细节让我'有好感/想买'？","走的过程里，任何一个'咦这个贴心/讲究/想买'的瞬间，马上记。比如试吃后想买、包装好看、一块暖心提示牌。"]
   ],
   "🧩 ④ 可复制性（连锁的命根 · 郝哥最想你学）": [
-    ["d1","哪些明显是标准化、能复制的？","陈列/流程/话术/SOP"],
-    ["d2","供应链/自有品牌怎么撑起来的？","生鲜/烘焙/熟食从哪来、怎么稳定"],
-    ["d3","这套搬到我们快餐，哪些能复制？","尤其线上/会员/爆品打法"]
+    ["d1","哪些是标准化、能复制的？","复制 = '换一家店也能照搬'。看：① 陈列有没有固定套路（像有模板）；② 价签/海报/导视是不是统一样式；③ 员工话术是不是一套（都同样欢迎语）；④ 结账/称重/加工流程顺不顺、像不像训练过。边看边问自己：'这个开第二家，能原样照搬吗？'能照搬的，就是可复制的。"],
+    ["d2","供应链/自有品牌怎么撑的？","新手简单看两样：① 自有品牌商品多不多（贴永辉/胖东来牌子 = 自己掌控供应链）；② 生鲜/活鲜新不新鲜、品种全不全（背后是供应链硬实力）。再留意现制熟食/烘焙有没有'统一配送'的痕迹。"],
+    ["d3","这套搬到我们快餐，哪些能复制？","看到永辉任何一个聪明做法，就翻译成快餐版：'用现烤面包香味勾人进门'→'我们用现炒锅气/爆品菜勾人下单'；'用会员锁客'→'我们用私域群锁客'。把它的招，往你们的线上/外卖上套。"]
   ],
   "💰 ⑤ 生意眼（像老板那样读店）": [
-    ["e1","几点人多、几点人少？","不同时段对比，看客流规律"],
-    ["e2","哪个区人最密？大家手里在买什么？","人往哪走、停在哪、拿什么"],
-    ["e3","估一下：客单价、排队长度、坪效感觉","心算这店到底赚不赚钱"]
+    ["e1","几点人多、几点人少？","分时段去、或待久点，记下大概几点开始多、几点最挤、几点冷清（超市一般饭点前、傍晚下班后人多）。这是它的'客流节奏'。"],
+    ["e2","哪个区人最密？大家买什么？","走一圈看哪个区永远围着人（多半是生鲜/特价/熟食），看大家推车里最多的是啥。人最多的区 = 它的'流量发动机'。"],
+    ["e3","估一下：客单价、排队、坪效","① 客单价——在收银台瞄几个人买多少钱、推车满不满，估个平均；② 排队——队多长、等多久（越长越火，也可能收银不够）；③ 坪效——不用算精确，就感受'这么大店、这么多人、这个客单'，毛估它是赚是赔。"]
   ]
 };
 
@@ -101,7 +106,10 @@ Object.keys(SECTIONS).forEach(sec=>{
     const cb=document.createElement('input'); cb.type='checkbox'; cb.id=id; cb.checked=!!checks[id];
     const qt=document.createElement('label'); qt.className='qt'; qt.htmlFor=id; qt.textContent=it[1];
     q.appendChild(cb); q.appendChild(qt); box.appendChild(q);
-    const hint=document.createElement('div'); hint.className='hint'; hint.textContent=it[2]; box.appendChild(hint);
+    const det=document.createElement('details');
+    const sm=document.createElement('summary'); sm.textContent='怎么看？';
+    const hw=document.createElement('div'); hw.className='howto'; hw.textContent=it[2];
+    det.appendChild(sm); det.appendChild(hw); box.appendChild(det);
     const ta=document.createElement('textarea'); ta.placeholder='看到什么，记这里…'; ta.value=notes[id]||'';
     box.appendChild(ta);
     cb.addEventListener('change',()=>{ checks[id]=cb.checked; localStorage.setItem('yh_checks',JSON.stringify(checks)); box.classList.toggle('done',cb.checked); prog(); });
