@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>永辉考察清单（私有）</title>
+<style>
+  :root{ --bg:#f5f5f0; --card:#fff; --line:#e3e1d8; --text:#2c2c2a; --muted:#76746c; --accent:#1d9e75; --accentbg:#e1f5ee; --blue:#185fa5; --bluebg:#e6f1fb; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.6; padding:16px; }
+  .wrap{ max-width:680px; margin:0 auto; }
+  h1{ font-size:21px; font-weight:600; margin:6px 0 4px; }
+  .sub{ color:var(--muted); font-size:13px; margin:0 0 14px; }
+  .tips{ background:var(--bluebg); color:var(--blue); border-radius:10px; padding:11px 14px; font-size:13px; margin:0 0 16px; }
+  .tips b{ font-weight:600; }
+  .prog{ height:8px; background:var(--line); border-radius:6px; overflow:hidden; margin:6px 0; }
+  .prog>div{ height:100%; background:var(--accent); width:0%; transition:.2s; }
+  .progtxt{ font-size:12px; color:var(--muted); margin-bottom:12px; }
+  .block{ font-size:15px; font-weight:600; margin:18px 0 8px; }
+  .item{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:11px 13px; margin-bottom:10px; }
+  .item.done{ background:var(--accentbg); border-color:var(--accent); }
+  .q{ display:flex; align-items:flex-start; gap:9px; }
+  .q input[type=checkbox]{ width:19px; height:19px; margin-top:2px; flex-shrink:0; accent-color:var(--accent); }
+  .q .qt{ font-size:14px; font-weight:500; }
+  .hint{ color:var(--muted); font-size:12px; margin:3px 0 7px 28px; }
+  textarea{ width:100%; border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:14px;
+    font-family:inherit; color:var(--text); background:#fff; resize:vertical; min-height:38px; }
+  textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accentbg); }
+  .out{ background:var(--card); border:1.5px solid var(--accent); border-radius:10px; padding:13px 15px; margin-top:18px; }
+  .out h2{ font-size:16px; font-weight:600; margin:0 0 4px; }
+  .out p{ font-size:13px; color:var(--muted); margin:0 0 9px; }
+  .out textarea{ min-height:120px; }
+  .save{ font-size:11px; color:var(--accent); }
+  .foot{ color:var(--muted); font-size:12px; margin-top:16px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔍 永辉考察清单</h1>
+  <p class="sub">到了永辉，照着逐条看、边看边记。<span class="save">✓ 勾选和笔记自动存本机，关了再开还在。</span></p>
+
+  <div class="tips">
+    <b>怎么考察：</b>① 去 2–3 次、不同时段（工作日午晚高峰 + 周末）；② 像侦探、不是逛街，揣着问题看；③ <b>亲自买一次、吃一次</b>（尤其现制熟食），走完整流程；④ 顺手拍点素材。
+  </div>
+
+  <div class="prog"><div id="bar"></div></div>
+  <div class="progtxt" id="progtxt">0 / 0</div>
+
+  <div id="list"></div>
+
+  <div class="out">
+    <h2>📝 回来产出：永辉给我们快餐连锁的 5 条启发</h2>
+    <p>考察的意义在这——没产出物不算考察。回来把最有用的 5 条写下来，这是交给郝哥的作业。</p>
+    <textarea id="takeaways" placeholder="1.&#10;2.&#10;3.&#10;4.&#10;5."></textarea>
+  </div>
+
+  <p class="foot">私有 · 别外发 ｜ 改了跟 Claude 说一声推一下</p>
+</div>
+
+<script>
+const SECTIONS = {
+  "🎯 ① 引流 → 留存（最重要）": [
+    ["a1","什么把人吸进门？","爆品/低价/现烤面包/活鱼…看门口和招牌主推啥"],
+    ["a2","什么让人还想再来？","品质/服务/体验/会员——这才是留人的"],
+    ["a3","我自己被什么勾住了？","亲自走一圈，记下'想再来'的那个瞬间"]
+  ],
+  "🔥 ② 爆品逻辑（流量品 vs 利润品）": [
+    ["b1","哪几个是'赔本赚吆喝'的引流爆款？","超低价、排队、摆最显眼处"],
+    ["b2","哪些看着是真赚钱的？","高毛利、自有品牌、熟食现制"],
+    ["b3","靠哪个明星单品打心智？","一提永辉就想到的那样东西"]
+  ],
+  "✨ ③ 体验与细节（留人的'真东西'）": [
+    ["c1","服务/员工状态怎么样？","热情？主动？精神面貌"],
+    ["c2","陈列/试吃/干净度有哪些讲究的细节？","哪些做得比普通超市用心"],
+    ["c3","哪个细节让我'有好感/想买'？","记下来——这就是复购机关"]
+  ],
+  "🧩 ④ 可复制性（连锁的命根 · 郝哥最想你学）": [
+    ["d1","哪些明显是标准化、能复制的？","陈列/流程/话术/SOP"],
+    ["d2","供应链/自有品牌怎么撑起来的？","生鲜/烘焙/熟食从哪来、怎么稳定"],
+    ["d3","这套搬到我们快餐，哪些能复制？","尤其线上/会员/爆品打法"]
+  ],
+  "💰 ⑤ 生意眼（像老板那样读店）": [
+    ["e1","几点人多、几点人少？","不同时段对比，看客流规律"],
+    ["e2","哪个区人最密？大家手里在买什么？","人往哪走、停在哪、拿什么"],
+    ["e3","估一下：客单价、排队长度、坪效感觉","心算这店到底赚不赚钱"]
+  ]
+};
+
+const list = document.getElementById('list');
+let checks = JSON.parse(localStorage.getItem('yh_checks')||'{}');
+let notes = JSON.parse(localStorage.getItem('yh_notes')||'{}');
+let total = 0;
+
+Object.keys(SECTIONS).forEach(sec=>{
+  const h=document.createElement('div'); h.className='block'; h.textContent=sec; list.appendChild(h);
+  SECTIONS[sec].forEach(it=>{
+    const id=it[0]; total++;
+    const box=document.createElement('div'); box.className='item'+(checks[id]?' done':'');
+    const q=document.createElement('div'); q.className='q';
+    const cb=document.createElement('input'); cb.type='checkbox'; cb.id=id; cb.checked=!!checks[id];
+    const qt=document.createElement('label'); qt.className='qt'; qt.htmlFor=id; qt.textContent=it[1];
+    q.appendChild(cb); q.appendChild(qt); box.appendChild(q);
+    const hint=document.createElement('div'); hint.className='hint'; hint.textContent=it[2]; box.appendChild(hint);
+    const ta=document.createElement('textarea'); ta.placeholder='看到什么，记这里…'; ta.value=notes[id]||'';
+    box.appendChild(ta);
+    cb.addEventListener('change',()=>{ checks[id]=cb.checked; localStorage.setItem('yh_checks',JSON.stringify(checks)); box.classList.toggle('done',cb.checked); prog(); });
+    ta.addEventListener('input',()=>{ notes[id]=ta.value; localStorage.setItem('yh_notes',JSON.stringify(notes)); });
+    list.appendChild(box);
+  });
+});
+
+const tk=document.getElementById('takeaways');
+tk.value=localStorage.getItem('yh_takeaways')||'';
+tk.addEventListener('input',()=>localStorage.setItem('yh_takeaways',tk.value));
+
+function prog(){
+  const done=Object.values(checks).filter(Boolean).length;
+  document.getElementById('bar').style.width=(total?Math.round(done/total*100):0)+'%';
+  document.getElementById('progtxt').textContent=done+' / '+total+' 已看';
+}
+prog();
+</script>
+</body>
+</html>
