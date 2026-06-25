@@ -8,31 +8,29 @@
   :root{ --bg:#f5f5f0; --card:#fff; --line:#e3e1d8; --text:#2c2c2a; --muted:#76746c; --accent:#1d9e75; --accentbg:#e1f5ee; --blue:#185fa5; --bluebg:#e6f1fb; }
   *{ box-sizing:border-box; }
   body{ margin:0; background:var(--bg); color:var(--text);
-    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.6; padding:16px; }
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.55; padding:16px; }
   .wrap{ max-width:680px; margin:0 auto; }
   h1{ font-size:21px; font-weight:600; margin:6px 0 4px; }
-  .sub{ color:var(--muted); font-size:13px; margin:0 0 14px; }
-  .tips{ background:var(--bluebg); color:#0c447c; border-radius:10px; padding:11px 14px; font-size:13px; margin:0 0 16px; line-height:1.75; }
+  .sub{ color:var(--muted); font-size:13px; margin:0 0 12px; }
+  .tips{ background:var(--bluebg); color:#0c447c; border-radius:10px; padding:10px 13px; font-size:13px; margin:0 0 14px; line-height:1.7; }
   .tips b{ font-weight:600; }
-  .prog{ height:8px; background:var(--line); border-radius:6px; overflow:hidden; margin:6px 0; }
+  .prog{ height:7px; background:var(--line); border-radius:6px; overflow:hidden; margin:6px 0; }
   .prog>div{ height:100%; background:var(--accent); width:0%; transition:.2s; }
-  .progtxt{ font-size:12px; color:var(--muted); margin-bottom:12px; }
-  .block{ font-size:15px; font-weight:600; margin:18px 0 8px; }
-  .item{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:11px 13px; margin-bottom:10px; }
+  .progtxt{ font-size:12px; color:var(--muted); margin-bottom:10px; }
+  .block{ font-size:15px; font-weight:600; margin:16px 0 7px; }
+  .item{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:9px; }
   .item.done{ background:var(--accentbg); border-color:var(--accent); }
   .q{ display:flex; align-items:flex-start; gap:9px; }
-  .q input[type=checkbox]{ width:19px; height:19px; margin-top:2px; flex-shrink:0; accent-color:var(--accent); }
+  .q input[type=checkbox]{ width:19px; height:19px; margin-top:1px; flex-shrink:0; accent-color:var(--accent); }
   .q .qt{ font-size:14px; font-weight:600; }
-  details{ margin:7px 0 8px 28px; }
-  summary{ cursor:pointer; color:var(--blue); font-size:13px; font-weight:500; list-style:none; }
-  summary::-webkit-details-marker{ display:none; }
-  summary::before{ content:"💡 "; }
-  details[open] summary{ margin-bottom:6px; }
-  .howto{ font-size:13px; color:#0c447c; background:var(--bluebg); border-radius:8px; padding:10px 12px; line-height:1.85; white-space:pre-line; }
+  .ask{ margin:7px 0 0 28px; font-size:13.5px; line-height:1.5; background:var(--accentbg);
+    border-radius:7px; padding:7px 10px; color:#0f5c43; }
+  .meta{ margin:6px 0 0 28px; font-size:12px; color:var(--muted); line-height:1.6; }
+  .meta div{ margin:1px 0; }
   textarea{ width:100%; border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:14px;
-    font-family:inherit; color:var(--text); background:#fff; resize:vertical; min-height:46px; margin-top:2px; }
+    font-family:inherit; color:var(--text); background:#fff; resize:vertical; min-height:42px; margin:7px 0 0; }
   textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accentbg); }
-  .out{ background:var(--card); border:1.5px solid var(--accent); border-radius:10px; padding:13px 15px; margin-top:18px; }
+  .out{ background:var(--card); border:1.5px solid var(--accent); border-radius:10px; padding:13px 15px; margin-top:16px; }
   .out h2{ font-size:16px; font-weight:600; margin:0 0 4px; }
   .out p{ font-size:13px; color:var(--muted); margin:0 0 9px; }
   .out textarea{ min-height:120px; }
@@ -43,13 +41,10 @@
 <body>
 <div class="wrap">
   <h1>🧠 业务吃透 · 请教郝哥提纲</h1>
-  <p class="sub">把这门生意问透，后面拍视频/做推广才有准星。每条点开「💡」看怎么问。<span class="save">✓ 自动存本机。</span></p>
+  <p class="sub">把这门生意问透，后面拍视频/做推广才有准星。<span class="save">✓ 自动存本机。</span></p>
 
   <div class="tips">
-    <b>今晚怎么聊：</b><br>
-    ① <b>让郝哥讲、你记、不懂就追问</b>——他爱讲、有成就感，你多请教正好加深"自己人"；<br>
-    ② 每条点开「💡」有现成的话，照着问；他答完敲进下面的框；<br>
-    ③ 聊完做最下面那道"复述题"——<b>你能用自己的话把这生意讲清楚，才算真吃透。</b>
+    <b>今晚怎么聊：</b> ① 让郝哥讲、你记、不懂就追问（他爱讲，你多请教正好加深"自己人"）；② 绿框里是<b>照着说的话</b>，他答完敲进下面的框；③ 聊完做最下面"复述题"——能用自己的话讲清楚，才算真吃透。
   </div>
 
   <div class="prog"><div id="bar"></div></div>
@@ -59,7 +54,7 @@
 
   <div class="out">
     <h2>✅ 吃透自检：用你自己的话，把这门生意讲一遍</h2>
-    <p>聊完趁热写——"这是一家___的店，卖给___，他们选我们是因为___，靠___赚钱，将来靠___复制成连锁。"讲得顺，就吃透了；卡壳的地方，就是还没问清、明天接着问。</p>
+    <p>聊完趁热写——讲得顺就吃透了；卡壳的地方，就是还没问清、明天接着问。</p>
     <textarea id="summary" placeholder="这是一家……的店，卖给……，他们选我们是因为……，靠……赚钱，将来靠……复制成连锁。"></textarea>
   </div>
 
@@ -69,24 +64,38 @@
 <script>
 const SECTIONS = {
   "🍜 产品 & 客户": [
-    ["q1","① 到底卖什么？",
-"🎯 搞清：具体卖哪几道菜/品类、招牌是哪几个、价格带、有没有套餐、哪些引流哪些赚钱。\n📍 为啥有用：你拍图、拍视频的主角就是这些菜——不知道主打啥，没法突出。\n🗣 这样问：『咱主打哪几道菜？招牌是哪个？价位大概多少？有没有套餐？』"],
-    ["q2","② 卖给谁？他们啥时候买？",
-"🎯 搞清：目标顾客是谁（周边白领/学生/不开火的家庭/懒得做饭的年轻人）+ 什么场景下单（三餐/加班/周末）。\n📍 为啥有用：客群决定你内容怎么说话、几点投放、私域怎么搭。\n🗣 这样问：『咱主要做哪类人的生意？您觉得他们啥时候点得最多？』"],
-    ["q3","③ 凭什么选你、不选别家？ ⭐最重要",
-"🎯 搞清：顾客为啥选这家——现炒锅气？出餐快？便宜？净菜健康看得见？量大实在？\n📍 为啥有用：这是你所有推广的『核心信息』，视频/文案/图全围着它转。这条不清楚，必乱拍。\n🗣 这样问：『跟周边那些快餐、外卖比，咱最能打、最不一样的点是啥？我推广就主打这个。』"]
+    {id:"q1", q:"① 到底卖什么？",
+     ask:"咱主打哪几道菜？招牌是哪个？价位大概多少？有没有套餐？",
+     clarify:"具体卖哪几道菜/品类、招牌、价格带、套餐、哪些引流哪些赚钱",
+     why:"你拍图拍视频的主角就是这些菜——不知道主打啥，没法突出"},
+    {id:"q2", q:"② 卖给谁？他们啥时候买？",
+     ask:"咱主要做哪类人的生意？您觉得他们啥时候点得最多？",
+     clarify:"目标顾客（白领/学生/不开火的家庭/懒得做饭的）+ 什么场景下单（三餐/加班/周末）",
+     why:"客群决定你内容怎么说话、几点投放、私域怎么搭"},
+    {id:"q3", q:"③ 凭什么选你、不选别家？ ⭐最重要",
+     ask:"跟周边那些快餐、外卖比，咱最能打、最不一样的点是啥？我推广就主打这个。",
+     clarify:"顾客为啥选这家——现炒锅气？出餐快？便宜？净菜健康看得见？量大？",
+     why:"这是你所有推广的『核心信息』，视频/文案/图全围着它转——不清楚必乱拍"}
   ],
   "⚙️ 运营 & 赚钱": [
-    ["q4","④ 一单是怎么走完的？（业务链路）",
-"🎯 搞清：顾客下单 → 炒菜机做 → 出餐 → 交付的全流程；堂食和外卖各怎么走；出餐多快。\n📍 为啥有用：流程里藏着卖点（『炒菜机现炒、3 分钟出餐』就是现成的视频爆点）。\n🗣 这样问/做：『郝哥您给我捋一遍——从客人点单到吃上嘴，整个流程怎么走？炒菜机在中间干啥？多快出餐？』最好让他带你实地走一遍。"],
-    ["q5","⑤ 靠什么赚钱？",
-"🎯 搞清：客单价 × 单量、成本结构、炒菜机怎么省成本提效。\n📍 为啥有用：知道赚钱逻辑，才知道推广该冲量还是冲客单、主推哪些高毛利菜。\n🗣 这样问：『咱主要靠啥赚钱？客单价大概多少？炒菜机帮咱省了哪块成本？』（再用利润计算器套一遍）"],
-    ["q6","⑥『净菜』到底是啥角色？",
-"🎯 搞清：净菜是招牌噱头？是供应链（统一配送净菜给店）？还是卖点（新鲜看得见）？\n📍 为啥有用：这个不厘清，你连『这店到底卖啥的』都说不清，更别说推广定位。\n🗣 这样问：『咱这「净菜」，到底是个招牌、是供货方式、还是一个卖点？我得搞清才好对外说。』"]
+    {id:"q4", q:"④ 一单是怎么走完的？（业务链路）",
+     ask:"郝哥您给我捋一遍——从客人点单到吃上嘴，流程怎么走？炒菜机干啥？多快出餐？（最好带我实地走一遍）",
+     clarify:"下单→炒菜机做→出餐→交付全流程；堂食和外卖各怎么走；出餐多快",
+     why:"流程里藏着卖点（『炒菜机现炒、3分钟出餐』就是现成视频爆点）"},
+    {id:"q5", q:"⑤ 靠什么赚钱？",
+     ask:"咱主要靠啥赚钱？客单价大概多少？炒菜机帮咱省了哪块成本？",
+     clarify:"客单价×单量、成本结构、炒菜机怎么省成本提效",
+     why:"知道赚钱逻辑，才知道推广冲量还是冲客单、主推哪些高毛利菜"},
+    {id:"q6", q:"⑥『净菜』到底是啥角色？",
+     ask:"咱这『净菜』，到底是个招牌、是供货方式、还是一个卖点？我得搞清才好对外说。",
+     clarify:"净菜是招牌噱头？是供应链（统一配送净菜给店）？还是卖点（新鲜看得见）？",
+     why:"不厘清，你连『这店到底卖啥的』都说不清"}
   ],
   "🏪 连锁大盘": [
-    ["q7","⑦ 怎么复制成连锁？ ⭐你作品的核心",
-"🎯 搞清：连锁样板要复制的『核心』是啥——中央厨房 + 净菜统一配送 + 炒菜机标准化出品（不用大厨、家家味道一样）？\n📍 为啥有用：这是郝哥野心的发动机，也是你『作品』要趟通的可复制打法。理解它，你的作品才从『做好一家店』升级成『趟通一套模式』。\n🗣 这样问：『您这连锁，靠什么保证开十家、家家味道一样？我想把网络这套也做成能复制的。』"]
+    {id:"q7", q:"⑦ 怎么复制成连锁？ ⭐你作品的核心",
+     ask:"您这连锁，靠什么保证开十家、家家味道一样？我想把网络这套也做成能复制的。",
+     clarify:"要复制的『核心』——中央厨房+净菜统一配送+炒菜机标准化出品（不用大厨、家家一样）？",
+     why:"郝哥野心的发动机，也是你『作品』要趟通的可复制打法——作品才从『做好一家店』升级成『趟通一套模式』"}
   ]
 };
 
@@ -98,16 +107,18 @@ let total = 0;
 Object.keys(SECTIONS).forEach(sec=>{
   const h=document.createElement('div'); h.className='block'; h.textContent=sec; list.appendChild(h);
   SECTIONS[sec].forEach(it=>{
-    const id=it[0]; total++;
+    const id=it.id; total++;
     const box=document.createElement('div'); box.className='item'+(checks[id]?' done':'');
-    const q=document.createElement('div'); q.className='q';
-    const cb=document.createElement('input'); cb.type='checkbox'; cb.id=id; cb.checked=!!checks[id];
-    const qt=document.createElement('label'); qt.className='qt'; qt.htmlFor=id; qt.textContent=it[1];
+    const q=document.createElement('label'); q.className='q';
+    const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!checks[id];
+    const qt=document.createElement('span'); qt.className='qt'; qt.textContent=it.q;
     q.appendChild(cb); q.appendChild(qt); box.appendChild(q);
-    const det=document.createElement('details');
-    const sm=document.createElement('summary'); sm.textContent='怎么问';
-    const hw=document.createElement('div'); hw.className='howto'; hw.textContent=it[2];
-    det.appendChild(sm); det.appendChild(hw); box.appendChild(det);
+    const ask=document.createElement('div'); ask.className='ask'; ask.textContent='🗣 照着问：「'+it.ask+'」';
+    box.appendChild(ask);
+    const meta=document.createElement('div'); meta.className='meta';
+    const m1=document.createElement('div'); m1.textContent='🎯 搞清：'+it.clarify;
+    const m2=document.createElement('div'); m2.textContent='📍 为啥：'+it.why;
+    meta.appendChild(m1); meta.appendChild(m2); box.appendChild(meta);
     const ta=document.createElement('textarea'); ta.placeholder='郝哥怎么答的，记这里…'; ta.value=notes[id]||'';
     box.appendChild(ta);
     cb.addEventListener('change',()=>{ checks[id]=cb.checked; localStorage.setItem('yw_checks',JSON.stringify(checks)); box.classList.toggle('done',cb.checked); prog(); });
