@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Part B 实地尽调清单·独立完成（私有）</title>
+<style>
+  :root{ --bg:#f5f5f0; --card:#fff; --line:#e3e1d8; --text:#2c2c2a; --muted:#76746c; --accent:#1d9e75; --accentbg:#e1f5ee; --blue:#185fa5; --bluebg:#e6f1fb; --red:#b23b2e; --redbg:#fbe7e4; --warn:#9a6a10; --warnbg:#faeeda; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.55; padding:16px; }
+  .wrap{ max-width:680px; margin:0 auto; }
+  a.back{ color:var(--muted); font-size:13px; text-decoration:none; }
+  h1{ font-size:21px; font-weight:600; margin:8px 0 4px; }
+  .sub{ color:var(--muted); font-size:13px; margin:0 0 12px; }
+  .save{ color:var(--accent); }
+  .mingmen{ background:var(--redbg); color:var(--red); border-radius:10px; padding:11px 14px; font-size:13.5px; margin:0 0 14px; line-height:1.65; }
+  .mingmen b{ font-weight:700; }
+  .prog{ height:7px; background:var(--line); border-radius:6px; overflow:hidden; margin:6px 0; }
+  .prog>div{ height:100%; background:var(--accent); width:0%; transition:.2s; }
+  .progtxt{ font-size:12px; color:var(--muted); margin-bottom:10px; }
+  .block{ font-size:15px; font-weight:600; margin:18px 0 7px; padding-bottom:4px; border-bottom:1px solid var(--line); }
+  .item{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:9px; }
+  .item.done{ background:var(--accentbg); border-color:var(--accent); }
+  .item.key{ border-color:var(--red); }
+  .item.key.done{ border-color:var(--accent); }
+  .q{ display:flex; align-items:flex-start; gap:9px; }
+  .q input[type=checkbox]{ width:19px; height:19px; margin-top:1px; flex-shrink:0; accent-color:var(--accent); }
+  .q .qt{ font-size:14px; font-weight:600; }
+  .keytag{ font-size:11px; background:var(--redbg); color:var(--red); border-radius:6px; padding:1px 7px; margin-left:6px; vertical-align:middle; font-weight:600; }
+  .meta{ margin:7px 0 0 28px; font-size:12.5px; color:var(--muted); line-height:1.6; }
+  .meta .judge{ background:var(--bluebg); color:#0c447c; border-radius:7px; padding:6px 9px; margin-top:4px; }
+  textarea{ width:100%; border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:14px;
+    font-family:inherit; color:var(--text); background:#fff; resize:vertical; min-height:40px; margin:7px 0 0; }
+  textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accentbg); }
+  .calc{ display:inline-block; margin-top:7px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:600; }
+  .light{ background:var(--card); border:1.5px solid var(--accent); border-radius:10px; padding:13px 15px; margin-top:18px; }
+  .light h2{ font-size:16px; font-weight:600; margin:0 0 8px; }
+  .light table{ width:100%; border-collapse:collapse; font-size:12.5px; margin-bottom:10px; }
+  .light td{ border:1px solid var(--line); padding:6px 8px; vertical-align:top; }
+  .light .g{ background:var(--accentbg); }
+  .light .y{ background:var(--warnbg); }
+  .light .r{ background:var(--redbg); }
+  .light textarea{ min-height:80px; }
+  .disc{ background:var(--warnbg); color:var(--warn); border-radius:8px; padding:9px 12px; font-size:12.5px; margin-top:10px; line-height:1.65; }
+  .foot{ color:var(--muted); font-size:12px; margin-top:16px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./index.html">← 回总台</a>
+  <h1>🗺️ Part B 实地尽调清单</h1>
+  <p class="sub">我一个人跑，不涉及郝哥 · 按场景顺序走，边填边自动存本机。<span class="save">✓ 自动存。</span></p>
+
+  <div class="mingmen">
+    🎯 <b>头号命门：这 3 公里是「写字楼/企业聚集」还是「纯居民区」？</b><br>
+    纯推理已把整门生意逼到这一个事实点——有写字楼→企业团餐这条"绕开外卖抽佣赚肉"的路立得住、可考虑进；纯居民区→团餐塌、只剩被外卖抽着的苦活，叠加外卖打不过连锁 → <b>大概率 No-Go</b>。下面标 <span class="keytag">命门</span> 的，重点数。
+  </div>
+
+  <div class="prog"><div id="bar"></div></div>
+  <div class="progtxt" id="progtxt">0 / 0</div>
+
+  <div id="list"></div>
+
+  <div class="light">
+    <h2>🚦 跑完 · 自己判生死</h2>
+    <table>
+      <tr class="g"><td>🟢 有活的写字楼/园区 + 午饭点白领潮 + 外卖盘够喂保本 + 竞品没卷死</td><td><b>可认真考虑进</b>（进 Part C 算总账）</td></tr>
+      <tr class="y"><td>🟡 写字楼模糊 / 外卖盘勉强 / 竞品偏卷</td><td><b>数据摆出来，进 Part C 冷静称</b></td></tr>
+      <tr class="r"><td>🔴 几乎纯居民区 + 没白领潮 + 盘喂不饱保本 / 连锁已扎堆</td><td><b>倾向 No-Go、1 万止损净身离场</b></td></tr>
+    </table>
+    <textarea id="verdict" placeholder="跑完一句话判断：我看到的是 🟢/🟡/🔴，因为……（写字楼几栋、月售加总、保本单量达不达得到）"></textarea>
+    <div class="disc">⚠️ 两条纪律：① 数据没拿回来之前，<b>不许用现在的"偏红"情绪提前拍死</b>——判决权交给真实地况。② 拿回来之后，<b>也别用"我想做"盖过红灯</b>——这正是闸门存在的意义。</div>
+  </div>
+
+  <p class="foot">🔒 私有 · 别外发 ｜ 母本 ~/Developer/wb-d555fa0a ｜ 改了跟 Claude 说一声推一下</p>
+</div>
+
+<script>
+const SECTIONS = {
+  "📍 出门前 · 在地图上（高德/百度）": [
+    {id:"b1", q:"① 量 3 公里外卖覆盖圈", record:"圈定范围、底图印象", judge:""},
+    {id:"b2", q:"② 数写字楼/产业园/园区", key:true, record:"写字楼/园区数量（粗数）", judge:"≥3–4 栋或 1 个成规模园区 = 团餐有苗；近 0 = 警报"},
+    {id:"b3", q:"③ 数住宅小区/公寓", record:"小区个数、大致量级", judge:"用于估居民盘子大小"},
+    {id:"b4", q:"④ 看快餐红点密不密", record:"竞品密度第一印象（密/疏）", judge:"太密 = 红海预警（场景三细扒）"}
+  ],
+  "🚶 现场 · 工作日午饭点 11:30–13:00 去一趟": [
+    {id:"b5", q:"⑤ 看人流构成", key:true, record:"白领潮 还是 老人/小孩/买菜大妈？", judge:"白领午餐潮 = 团餐+外卖刚需在；全是居民闲人 = 团餐塌、外卖盘偏弱"},
+    {id:"b6", q:"⑥ 实地确认写字楼是不是活的", key:true, record:"真在运营的有几栋、目测员工规模", judge:"地图有 ≠ 现实有，必须眼见"},
+    {id:"b7", q:"⑦ 看店本身可见性", record:"在不在主路、好不好找、有没有招牌位", judge:"印证'堂食没戏、纯靠外卖'"},
+    {id:"b8", q:"⑧ 记周边在营快餐店", record:"几家、生意冷热", judge:"配合场景三的美团数据"}
+  ],
+  "📱 美团外卖 App（地址设保利大江郡 → 快餐便当）": [
+    {id:"b9", q:"⑨ 数竞品商家总数", record:"能点到的快餐外卖家数", judge:"越多越卷"},
+    {id:"b10", q:"⑩ 记头部 5–8 家'月售 XXX'", key:true, record:"各家月售 → 加总", judge:"估这个区域的外卖盘子有多大（估天花板最硬的线索）"},
+    {id:"b11", q:"⑪ 记客单价/满减/起送/配送费", record:"主流客单价区间、满 X 减 Y、起送、配送费", judge:"填进保本模型；看价格战卷度"},
+    {id:"b12", q:"⑫ 看连锁进没进", record:"霸碗/老乡鸡/乡村基/米村等有没有", judge:"连锁多 = 正面战场更难、缝隙更小"},
+    {id:"b13", q:"⑬ 看评分最高几家做对了啥", record:"图/菜/活动 的打法", judge:"给我'外卖运营'找参照"}
+  ],
+  "🧮 回家 · 用利润计算器（成本用行业假设值，不问郝哥）": [
+    {id:"b14", q:"⑭ 算保本日单量", key:true,
+     record:"假设：租3500 / 人工4000(1人) / 食材占35%(毛利65%) / 外卖抽成25% / 客单价用场景三实际值 → 算出保本日单量＝？",
+     judge:"对照第⑩项估的'区域外卖盘'——这位置现实里达得到这个保本单量吗？", calc:true}
+  ]
+};
+
+const CALC = "https://312760175liusheng-ship-it.github.io/jingcai-calculator/";
+const list = document.getElementById('list');
+let checks = JSON.parse(localStorage.getItem('pb_checks')||'{}');
+let notes = JSON.parse(localStorage.getItem('pb_notes')||'{}');
+let total = 0;
+
+Object.keys(SECTIONS).forEach(sec=>{
+  const h=document.createElement('div'); h.className='block'; h.textContent=sec; list.appendChild(h);
+  SECTIONS[sec].forEach(it=>{
+    const id=it.id; total++;
+    const box=document.createElement('div'); box.className='item'+(it.key?' key':'')+(checks[id]?' done':'');
+    const q=document.createElement('label'); q.className='q';
+    const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!checks[id];
+    const qt=document.createElement('span'); qt.className='qt'; qt.textContent=it.q;
+    if(it.key){ const kt=document.createElement('span'); kt.className='keytag'; kt.textContent='命门'; qt.appendChild(kt); }
+    q.appendChild(cb); q.appendChild(qt); box.appendChild(q);
+    const ta=document.createElement('textarea'); ta.placeholder='要记的数：'+it.record; ta.value=notes[id]||'';
+    box.appendChild(ta);
+    if(it.judge){
+      const meta=document.createElement('div'); meta.className='meta';
+      const j=document.createElement('div'); j.className='judge'; j.textContent='📊 怎么判：'+it.judge;
+      meta.appendChild(j); box.appendChild(meta);
+    }
+    if(it.calc){ const a=document.createElement('a'); a.className='calc'; a.href=CALC; a.target='_blank'; a.textContent='📊 打开利润计算器 →'; box.appendChild(a); }
+    cb.addEventListener('change',()=>{ checks[id]=cb.checked; localStorage.setItem('pb_checks',JSON.stringify(checks)); box.classList.toggle('done',cb.checked); prog(); });
+    ta.addEventListener('input',()=>{ notes[id]=ta.value; localStorage.setItem('pb_notes',JSON.stringify(notes)); });
+    list.appendChild(box);
+  });
+});
+
+const vd=document.getElementById('verdict');
+vd.value=localStorage.getItem('pb_verdict')||'';
+vd.addEventListener('input',()=>localStorage.setItem('pb_verdict',vd.value));
+
+function prog(){
+  const done=Object.values(checks).filter(Boolean).length;
+  document.getElementById('bar').style.width=(total?Math.round(done/total*100):0)+'%';
+  document.getElementById('progtxt').textContent=done+' / '+total+' 已采集';
+}
+prog();
+</script>
+</body>
+</html>
